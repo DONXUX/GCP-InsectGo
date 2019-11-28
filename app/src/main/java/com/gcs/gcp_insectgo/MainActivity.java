@@ -9,6 +9,7 @@ import androidx.core.content.FileProvider;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Camera;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -75,6 +76,13 @@ public class MainActivity extends AppCompatActivity {
                     .setPositiveButton(R.string.dialog_select_gallery, (dialog, which) -> startGalleryChooser())
                     .setNegativeButton(R.string.dialog_select_camera, (dialog, which) -> startCamera());
             builder.create().show();
+        });
+
+        /// AR Camera 액티비티 전환
+        FloatingActionButton camerafab = findViewById(R.id.camera_fab);
+        camerafab.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, CameraARActivity.class);
+            startActivity(intent);
         });
 
         mImageDetails = findViewById(R.id.image_details);

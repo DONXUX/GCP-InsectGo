@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.ar.sceneform.plugin'
 
 android {
     compileSdkVersion 29
@@ -35,4 +36,13 @@ dependencies {
     implementation 'com.google.api-client:google-api-client-android:1.23.0' exclude module: 'httpclient'
     implementation 'com.google.http-client:google-http-client-gson:1.23.0' exclude module: 'httpclient'
     implementation 'com.google.apis:google-api-services-vision:v1-rev369-1.23.0'
+
+    implementation "com.google.ar.sceneform.ux:sceneform-ux:1.12.0"
 }
+
+
+
+sceneform.asset('sampledata/spider.obj',
+        'default',
+        'sampledata/spider.sfa',
+        'src/main/assets/spider')
