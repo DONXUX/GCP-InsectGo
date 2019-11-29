@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.ar.core.Anchor;
@@ -23,7 +24,7 @@ import com.google.ar.sceneform.ux.TransformableNode;
 
 // AR Camera 클래스
 // ARCore Sceneform SDK 사용
-// 평면을 인식하여 선택된 곤충을 그래픽을 hit된 평면위에 띄웁니다.
+// 평면을 인식하여 선택된 곤충을 그래픽을 hit 된 평면위에 띄웁니다.
 
 public class CameraARActivity extends AppCompatActivity {
     private static final String TAG = CameraARActivity.class.getSimpleName();
@@ -38,9 +39,8 @@ public class CameraARActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (!checkIsSupportedDeviceOrFinish(this)) {
+        if (!checkIsSupportedDeviceOrFinish(this))
             return;
-        }
 
         setContentView(R.layout.activity_camera_ar);
         arFragment = (ArFragment) getSupportFragmentManager().findFragmentById(R.id.ux_fragment);
@@ -59,12 +59,11 @@ public class CameraARActivity extends AppCompatActivity {
                             return null;
                         });
 
-        /// 평면을 인식하고 터치한 화면 좌표를 현실 3D 좌표로 변환하여 Hit합니다.
+        /// 평면을 인식하고 터치한 화면 좌표를 현실 3D 좌표로 변환하여 hit 합니다.
         arFragment.setOnTapArPlaneListener(
                 (HitResult hitResult, Plane plane, MotionEvent motionEvent) -> {
-                    if (andyRenderable == null) {
+                    if (andyRenderable == null)
                         return;
-                    }
 
                     /// Anchor 객체 생성
                     Anchor anchor = hitResult.createAnchor();
@@ -75,17 +74,18 @@ public class CameraARActivity extends AppCompatActivity {
                     andy.setParent(anchorNode);
                     andy.setRenderable(andyRenderable);
                     andy.select();
-                });
+                }
+        );
     }
 
-    // ARCore를 지원하는 안드로이드 사양인지 확인
+    // ARCore 를 지원하는 안드로이드 사양인지 확인
     public static boolean checkIsSupportedDeviceOrFinish(final Activity activity) {
-        if (Build.VERSION.SDK_INT < VERSION_CODES.N) {
+        /* if (Build.VERSION.SDK_INT < VERSION_CODES.N) {
             Log.e(TAG, "지원하지 않는 Android 버전입니다.");
             Toast.makeText(activity, "지원하지 않는 Android 버전입니다.", Toast.LENGTH_LONG).show();
             activity.finish();
             return false;
-        }
+        } */ // minSdkVersion 이 24라 필요없음
         String openGlVersionString =
                 ((ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE))
                         .getDeviceConfigurationInfo()
