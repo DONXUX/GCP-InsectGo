@@ -9,7 +9,6 @@ import androidx.core.content.FileProvider;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Camera;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -154,8 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 // scale the image to save on bandwidth
                 Bitmap bitmap =
                         scaleBitmapDown(
-                                MediaStore.Images.Media.getBitmap(getContentResolver(), uri),
-                                MAX_DIMENSION);
+                                MediaStore.Images.Media.getBitmap(getContentResolver(), uri));
 
                 callCloudVision(bitmap);
                 mMainImage.setImageBitmap(bitmap);
@@ -237,11 +235,11 @@ public class MainActivity extends AppCompatActivity {
         return annotateRequest;
     }
 
-    private static class LableDetectionTask extends AsyncTask<Object, Void, String> {
+    private static class LabelDetectionTask extends AsyncTask<Object, Void, String> {
         private final WeakReference<MainActivity> mActivityWeakReference;
         private Vision.Images.Annotate mRequest;
 
-        LableDetectionTask(MainActivity activity, Vision.Images.Annotate annotate) {
+        LabelDetectionTask(MainActivity activity, Vision.Images.Annotate annotate) {
             mActivityWeakReference = new WeakReference<>(activity);
             mRequest = annotate;
         }
@@ -277,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Do the real work in an async task, because we need to use the network anyway
         try {
-            AsyncTask<Object, Void, String> labelDetectionTask = new LableDetectionTask(this, prepareAnnotationRequest(bitmap));
+            AsyncTask<Object, Void, String> labelDetectionTask = new LabelDetectionTask(this, prepareAnnotationRequest(bitmap));
             labelDetectionTask.execute();
         } catch (IOException e) {
             Log.d(TAG, "failed to make API request because of other IOException " +
@@ -285,22 +283,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private Bitmap scaleBitmapDown(Bitmap bitmap, int maxDimension) {
+    private Bitmap scaleBitmapDown(Bitmap bitmap) {
 
         int originalWidth = bitmap.getWidth();
         int originalHeight = bitmap.getHeight();
-        int resizedWidth = maxDimension;
-        int resizedHeight = maxDimension;
+        int resizedWidth = MAX_DIMENSION;
+        int resizedHeight = MAX_DIMENSION;
 
         if (originalHeight > originalWidth) {
-            resizedHeight = maxDimension;
             resizedWidth = (int) (resizedHeight * (float) originalWidth / (float) originalHeight);
         } else if (originalWidth > originalHeight) {
-            resizedWidth = maxDimension;
             resizedHeight = (int) (resizedWidth * (float) originalHeight / (float) originalWidth);
-        } else if (originalHeight == originalWidth) {
-            resizedHeight = maxDimension;
-            resizedWidth = maxDimension;
         }
         return Bitmap.createScaledBitmap(bitmap, resizedWidth, resizedHeight, false);
     }

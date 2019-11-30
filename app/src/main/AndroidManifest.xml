@@ -30,7 +30,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".CameraARActivity"></activity>
+        <activity
+            android:name=".CameraARActivity">
+        </activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"

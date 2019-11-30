@@ -3,15 +3,12 @@ package com.gcs.gcp_insectgo;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
-import android.os.Build;
-import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.ar.core.Anchor;
