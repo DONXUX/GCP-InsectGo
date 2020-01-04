@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".MainActivity">
+    tools:context=".VisionApi">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -39,6 +39,7 @@
         android:layout_gravity="bottom|start"
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
+        android:focusable="true"
         app:srcCompat="@drawable/ic_camera_alt_black_24dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

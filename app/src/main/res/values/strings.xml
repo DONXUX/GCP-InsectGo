@@ -11,4 +11,9 @@
 
     <string name="image_picker">Use the floating action button to select an image.</string>
     <string name="image_picker_error">Something is wrong with that image. Pick a different one please.</string>
+
+    <string name="pocket">포켓</string>
+    <string name="dictionary">도감</string>
+    <string name="title_name">INSECT\nGO</string>
+
 </resources>
